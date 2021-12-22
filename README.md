@@ -12,4 +12,9 @@ The computer will detect when they win.
   - [x] a non empty grid should no be clicked or switched.
   - [x] As the game goes on after every click check if this click creates a winner.
 
-
+- Be cool to have
+  - [x] It has to look good.
+    - [x] Add typography to X and O
+    - [x] Add styling to board
+    - [x] Add title.
+  - [x] Add winner view.

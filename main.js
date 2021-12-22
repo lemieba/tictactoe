@@ -1,39 +1,47 @@
 // value representint X and O
-const X = 1
-const O = -1
+const X = {
+    val: 1,
+    output: "X",
+    color: "#010440"
+};
+const O = {
+    val: -1,
+    output: "O",
+    color: "#A64724"
+};
 
-const toString = {
-    [X]: "X",
-    [O]: "O"
-}
 
 
 // set initial state
-current_player = X
+current_player = X;
 board = [
-    [0,0,0],
-    [0,0,0],
-    [0,0,0]
-]
-
-
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+];
 
 // helper functions
 /**
  * how to check if there is a winner
- * 
- * input: 
+ *
+ * input:
  * output: boolean
- * 
+ *
  * goal
  * does the current board have a winner
- * 
+ *
  * solution:
  * check if any of the rows are winners
  * chekc if any of the columns are winners
  * check if any of the diagonals are winners
- * 
- * 
+ * rc
+ * 00
+ * 10
+ * 20
+ *
+ * 01
+ * 11
+ * 21
  */
 function winner() {
     // check rows
@@ -46,8 +54,7 @@ function winner() {
 
     // check columns
     for (let c = 0; c < board[0].length; c++) {
-        const column = board[0][c];
-        if (Math.abs(column[0] + column[1] + column[2]) === 3) {
+        if (Math.abs(board[0][c] + board[1][c] + board[2][c]) === 3) {
             return true;
         }
     }
@@ -63,21 +70,56 @@ function winner() {
     return false;
 }
 
-const cells = document.querySelectorAll('td');
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        const r = cell.closest('tr').rowIndex; 
+function XOElement(player, size) {
+    var text = document.createTextNode(player.output);
+    var OX = document.createElement("span");
+    OX.appendChild(text);
+    OX.style.fontSize = size;
+    OX.style.color = player.color;
+    return OX;
+}
+
+function showWinner(player) {
+    var board = document.getElementById("board");
+    console.log(board.style.display);
+    board.style.display = "none";
+
+
+    var winner_elem = document.getElementById("winner");
+    var row1 = document.createElement('tr');
+    row1.style.textAlign = 'center';
+    row1.appendChild(XOElement(player, "400px"));
+    winner_elem.appendChild(row1)
+
+    var row2 = document.createElement('tr');
+    row2.style.textAlign = 'center';
+    var winning_text = document.createElement("span");
+    winning_text.appendChild(document.createTextNode("WINNER!"));
+    winning_text.style.fontSize = '100px';
+    winning_text.style.color = player.color;
+    
+    row2.appendChild(winning_text);
+
+    winner_elem.appendChild(row2)
+    //
+    // <span style="font-size: 50px;">WINNER!</span>
+    console.log(winner_elem.style.display);
+    winner_elem.style.display = "block";
+}
+const cells = document.querySelectorAll("td");
+cells.forEach((cell) => {
+    cell.addEventListener("click", () => {
+        const r = cell.closest("tr").rowIndex;
         const c = cell.cellIndex;
 
         console.log(r, c);
         if (board[r][c] == 0) {
-            var text = document.createTextNode(toString[current_player]);
-            board[r][c] = current_player;
-            cell.appendChild(text);
-            if (winner()){
-                alert("player " + toString[current_player] +  " has won");
+            board[r][c] = current_player.val;
+            cell.appendChild(XOElement(current_player, "175px"));
+            if (winner()) {
+                showWinner(current_player);
             }
-            current_player = (current_player == X) ? O : X;
-        } 
+            current_player = current_player === X ? O : X;
+        }
     });
-})
+});

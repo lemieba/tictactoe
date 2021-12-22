@@ -1,8 +1,36 @@
-table, th, td {
-    border: 1px solid black;
+body {
+    font-family: 'Dosis', sans-serif;
+    margin: 0px;
 }
 
-#board {
-    width: 100px;
-    height: 100px;
+table, th, td {
+    border: 15px solid white;
+    border-collapse: collapse;
+}
+
+body{background: #F2BC57;}
+table{background: #F2BC57;}
+#board, #winner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 20px solid #F2BC57;
+    padding: 10px;
+}
+
+#title {
+    color: #010440;
+    display: flex;
+    justify-content: center;
+}
+
+td {
+    text-align: center;
+    width: 250px;
+    height: 250px;
+}
+
+#ox {
+    font-size: 175px;
 }
