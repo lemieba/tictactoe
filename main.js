@@ -79,26 +79,35 @@ function XOElement(player, size) {
     return OX;
 }
 
-function showWinner(player) {
+function showResult(player, result) {
     var board = document.getElementById("board");
     console.log(board.style.display);
     board.style.display = "none";
 
-
     var winner_elem = document.getElementById("winner");
-    var row1 = document.createElement('tr');
-    row1.style.textAlign = 'center';
-    row1.appendChild(XOElement(player, "400px"));
-    winner_elem.appendChild(row1)
+
+    if (result == "DRAW!") {
+        var row1 = document.createElement('tr');
+        row1.style.textAlign = 'center';
+        row1.appendChild(XOElement(X, "400px"));
+        row1.appendChild(XOElement(O, "400px"));
+        winner_elem.appendChild(row1)
+
+    } else {
+        var row1 = document.createElement('tr');
+        row1.style.textAlign = 'center';
+        row1.appendChild(XOElement(player, "400px"));
+        winner_elem.appendChild(row1)
+    }
 
     var row2 = document.createElement('tr');
     row2.style.textAlign = 'center';
-    var winning_text = document.createElement("span");
-    winning_text.appendChild(document.createTextNode("WINNER!"));
-    winning_text.style.fontSize = '100px';
-    winning_text.style.color = player.color;
+    var text = document.createElement("span");
+    text.appendChild(document.createTextNode(result));
+    text.style.fontSize = '100px';
+    text.style.color = player.color;
     
-    row2.appendChild(winning_text);
+    row2.appendChild(text);
 
     winner_elem.appendChild(row2)
     //
@@ -106,6 +115,20 @@ function showWinner(player) {
     console.log(winner_elem.style.display);
     winner_elem.style.display = "block";
 }
+
+function draw() {
+    for (let i = 0; i < board.length; i++) {
+        const row = board[i];
+        for (let j = 0; j < row.length; j++) {
+            const elem = row[j];
+            if (elem == 0) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 const cells = document.querySelectorAll("td");
 cells.forEach((cell) => {
     cell.addEventListener("click", () => {
@@ -117,7 +140,9 @@ cells.forEach((cell) => {
             board[r][c] = current_player.val;
             cell.appendChild(XOElement(current_player, "175px"));
             if (winner()) {
-                showWinner(current_player);
+                showResult(current_player, "WINNER!");
+            } else if (draw()) {
+                showResult(current_player, "DRAW!")
             }
             current_player = current_player === X ? O : X;
         }
