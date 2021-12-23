@@ -11,15 +11,52 @@ const O = {
 };
 
 
-
 // set initial state
-current_player = X;
+currentPlayer = X;
 board = [
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
 ];
 
+function restart() {
+    currentPlayer = X;
+    board = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+    ];
+
+    var winning_elem = document.getElementById("winner");
+    winning_elem.innerHTML = "";
+    winning_elem.style.display = "none";
+
+    
+    var boardTable = document.getElementById("board");
+    const cells = document.querySelectorAll("td");
+    cells.forEach(cell => {
+        cell.innerHTML = ''
+    });
+    cells.forEach((cell) => {
+        cell.addEventListener("click", () => {
+            const r = cell.closest("tr").rowIndex;
+            const c = cell.cellIndex;
+    
+            console.log(r, c);
+            if (board[r][c] == 0) {
+                board[r][c] = currentPlayer.val;
+                cell.appendChild(XOElement(currentPlayer, "175px"));
+                if (winner()) {
+                    showResult(currentPlayer, "WINNER!");
+                } else if (draw()) {
+                    showResult(currentPlayer, "DRAW!")
+                }
+                currentPlayer = currentPlayer === X ? O : X;
+            }
+        });
+    });    
+    boardTable.style.display = ""
+}
 // helper functions
 /**
  * how to check if there is a winner
@@ -106,12 +143,18 @@ function showResult(player, result) {
     text.appendChild(document.createTextNode(result));
     text.style.fontSize = '100px';
     text.style.color = player.color;
-    
     row2.appendChild(text);
-
     winner_elem.appendChild(row2)
-    //
-    // <span style="font-size: 50px;">WINNER!</span>
+
+
+    var row3 = document.createElement('tr');
+    row3.style.textAlign = 'center';
+    var button = document.createElement('button');
+    button.classList.add('button');
+    button.appendChild(document.createTextNode('RESTART'));
+    button.onclick = restart;
+    row3.appendChild(button);
+    winner_elem.appendChild(row3);
     console.log(winner_elem.style.display);
     winner_elem.style.display = "block";
 }
@@ -129,22 +172,4 @@ function draw() {
     return true;
 }
 
-const cells = document.querySelectorAll("td");
-cells.forEach((cell) => {
-    cell.addEventListener("click", () => {
-        const r = cell.closest("tr").rowIndex;
-        const c = cell.cellIndex;
-
-        console.log(r, c);
-        if (board[r][c] == 0) {
-            board[r][c] = current_player.val;
-            cell.appendChild(XOElement(current_player, "175px"));
-            if (winner()) {
-                showResult(current_player, "WINNER!");
-            } else if (draw()) {
-                showResult(current_player, "DRAW!")
-            }
-            current_player = current_player === X ? O : X;
-        }
-    });
-});
+restart();
