@@ -9,6 +9,9 @@ const O = {
     output: "O",
     color: "#A64724"
 };
+const DRAW = "DRAW!";
+const WINNER = "WINNER!";
+
 
 
 // set initial state
@@ -42,14 +45,13 @@ function restart() {
             const r = cell.closest("tr").rowIndex;
             const c = cell.cellIndex;
     
-            console.log(r, c);
             if (board[r][c] == 0) {
                 board[r][c] = currentPlayer.val;
                 cell.appendChild(XOElement(currentPlayer, "175px"));
                 if (winner()) {
-                    showResult(currentPlayer, "WINNER!");
+                    showResult(currentPlayer, WINNER);
                 } else if (draw()) {
-                    showResult(currentPlayer, "DRAW!")
+                    showResult(currentPlayer, DRAW)
                 }
                 currentPlayer = currentPlayer === X ? O : X;
             }
@@ -57,30 +59,9 @@ function restart() {
     });    
     boardTable.style.display = ""
 }
-// helper functions
-/**
- * how to check if there is a winner
- *
- * input:
- * output: boolean
- *
- * goal
- * does the current board have a winner
- *
- * solution:
- * check if any of the rows are winners
- * chekc if any of the columns are winners
- * check if any of the diagonals are winners
- * rc
- * 00
- * 10
- * 20
- *
- * 01
- * 11
- * 21
- */
-function winner() {
+
+
+ function winner() {
     // check rows
     for (let r = 0; r < board.length; r++) {
         const row = board[r];
@@ -118,12 +99,11 @@ function XOElement(player, size) {
 
 function showResult(player, result) {
     var board = document.getElementById("board");
-    console.log(board.style.display);
     board.style.display = "none";
 
     var winner_elem = document.getElementById("winner");
 
-    if (result == "DRAW!") {
+    if (result == DRAW) {
         var row1 = document.createElement('tr');
         row1.style.textAlign = 'center';
         row1.appendChild(XOElement(X, "400px"));
@@ -155,7 +135,6 @@ function showResult(player, result) {
     button.onclick = restart;
     row3.appendChild(button);
     winner_elem.appendChild(row3);
-    console.log(winner_elem.style.display);
     winner_elem.style.display = "block";
 }
 
