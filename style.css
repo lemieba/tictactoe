@@ -17,6 +17,7 @@ table{background: #F2BC57;}
     transform: translate(-50%, -50%);
     border: 20px solid #F2BC57;
     padding: 10px;
+    width: max-content;
 }
 
 #winner {
