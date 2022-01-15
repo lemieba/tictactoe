@@ -3,6 +3,11 @@
 A game where two players can play tic tac toe on the same computer.
 The computer will detect when they win.
 
+## Pages
+
+Winning
+
+
 ## Demo
 [Demo](https://lemieba.github.io/tictactoe/)
 
