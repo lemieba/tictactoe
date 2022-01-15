@@ -6,11 +6,10 @@ The computer will detect when they win.
 ## Pages
 
 Winning
-
+![X winner image](screenshots/X_winner.png "X winner"){ height:30px }
 
 ## Demo
 [Demo](https://lemieba.github.io/tictactoe/)
-
 ## Features
 
 - Minimum requirement
