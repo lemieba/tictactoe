@@ -4,7 +4,7 @@ A game where two players can play tic tac toe on the same computer.
 The computer will detect when they win.
 
 ## Demo
-lemieba.github.io/tictactoe
+[Demo](lemieba.github.io/tictactoe)
 
 ## Features
 
