@@ -3,13 +3,9 @@
 A game where two players can play tic tac toe on the same computer.
 The computer will detect when they win.
 
-## Pages
 
-Winning
-![X winner image](screenshots/X_winner.png "X winner"){ height:30px }
+## [Play Working Demo](https://lemieba.github.io/tictactoe/)
 
-## Demo
-[Demo](https://lemieba.github.io/tictactoe/)
 ## Features
 
 - Minimum requirement
@@ -25,3 +21,12 @@ Winning
     - [x] Add styling to board
     - [x] Add title.
   - [x] Add winner view.
+
+### Play Pages
+![X winner image](screenshots/play_page.png "X winner")
+
+### Possible result Pages
+![X winner image](screenshots/X_winner.png "X winner")
+![X winner image](screenshots/O_winner.png "O winner")
+![X winner image](screenshots/Draw.png "Draw")
+
